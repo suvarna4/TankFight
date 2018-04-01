@@ -19,7 +19,6 @@ void ATankPlayerController::BeginPlay() {
 void ATankPlayerController::Tick(float DeltaTime) {
 	Super::Tick(DeltaTime);
 
-	UE_LOG(LogTemp, Warning, TEXT("Aiming!"));
 	AimTowardsCrosshair();
 }
 
@@ -33,7 +32,7 @@ void ATankPlayerController::AimTowardsCrosshair() {
 	FVector HitLocation;
 
 	if (GetSightRayHitLocation(HitLocation)) {
-		//UE_LOG(LogTemp, Warning, TEXT("%s"), *HitLocation.ToString());
+		GetControlledTank()->AimAt(HitLocation);
 	}
 }
 
@@ -46,10 +45,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const {
 	// deproject screen position to a world direction
 	FVector LookDirection;
 	if (GetLookDirection(ScreenLocation, LookDirection)) {
-		FVector HitLocation;
-		if (GetLookVectorHitLocation(LookDirection, HitLocation)) {
-			UE_LOG(LogTemp, Warning, TEXT("Looking at %s"), *HitLocation.ToString());
-		}
+		GetLookVectorHitLocation(LookDirection, HitLocation);
 	}
 	// Line-trace along that direction and see what we hit (up to max range)
 	return true;
