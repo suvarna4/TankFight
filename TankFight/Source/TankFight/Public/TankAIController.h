@@ -3,9 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Tank.h"
 #include "AIController.h"
 #include "TankAIController.generated.h"
+
+class ATank;
 
 /**
  * 
@@ -21,7 +22,9 @@ public:
 
 private:
 	void Tick(float DeltaTime) override;
-	ATank* GetControlledTank() const;
-	ATank* GetPlayerTank() const;
+
+protected:
+	UPROPERTY(EditDefaultsOnly, Category = Aiming)
+	float AcceptanceRadius = 8000;
 
 };
